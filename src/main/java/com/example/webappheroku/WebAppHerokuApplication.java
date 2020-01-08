@@ -2,12 +2,14 @@ package com.example.webappheroku;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
+@Controller
 @SpringBootApplication
 public class WebAppHerokuApplication {
 
-  @GetMapping("")
+  @GetMapping("/")
   public String Home() {
     return "Hello from Heroku";
   }
