@@ -20,7 +20,7 @@ public class HomeControllerTest {
       mockMvc.perform(MockMvcRequestBuilders.get("/"))
         .andExpect(MockMvcResultMatchers.status().isOk())
         .andExpect(MockMvcResultMatchers.content().contentType("text/plain;charset=UTF-8"))
-        .andExpect(MockMvcResultMatchers.content().string("Hello from spring boot"));
+        .andExpect(MockMvcResultMatchers.content().string("Hello from spring boot error"));
     } catch (Exception e) {
       e.printStackTrace();
     }
