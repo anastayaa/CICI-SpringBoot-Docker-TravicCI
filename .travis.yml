@@ -1,3 +1,4 @@
+sudo: required
 #we use java
 language: java
 
@@ -6,7 +7,12 @@ jdk:
   - openjdk8
 services:
   - docker
-before_install:
-  - mvn clean package
-  - echo "$DOCKER_PASSWORD" | docker login  -u "$DOCKER_USERNAME" --password-stdin
-  - docker pull openjdk:8-jdk-alpine
+script:
+  - ./mvnw clean install -B
+after_success:
+  - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+  - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH; fi`
+  - export IMAGE_NAME=anastayaa/web-app-ci
+  - docker build -t $IMAGE_NAME:$COMMIT .
+  - docker tag $IMAGE_NAME:$COMMIT $IMAGE_NAME:$TAG
+  - docker push $IMAGE_NAME
