@@ -17,9 +17,6 @@ env:
 
 script:
   - ./mvnw clean install -B
-before_install:
-  - docker pull $IMAGE_NAME
-  - docker run --rm -d --name web-app -p 8080:8080 $IMAGE_NAME
 after_success:
   - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
   - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH; fi`
